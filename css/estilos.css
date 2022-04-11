@@ -8,22 +8,61 @@
 #body{
     background-color:#EBDCD9;
     
+    
 }
 
                                     /*HEADER*/
 
-#header h1{                                               
-    text-align: center;
-    margin: 25px;
+#titulo{
+    display: flex;
+    justify-content: center;
+}
+
+#titulo a{
+    text-decoration: none;
+}
+
+#titulo h1{   
+    color: black;                                            
+    text-align:center;
+    padding: 0%;
     font-weight: 100;
     font-size: 55px;
+    animation-name: fadeInDown;
+    animation-duration: 1s;
+    animation-iteration-count: 1;
+    transition: 0.3s ease;
 }
+
+#titulo h1:hover{
+    transform: scale(1.1);
+    background-color: #c2eaba;
+    background: linear-gradient(to right, #6666ff, #0099ff , #00ff00, #ff3399, #6666ff);
+    background-size: 1800% 1800%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    border: 2px black;
+    animation: rainbow_animation 2s ease-in-out infinite;
+    animation-fill-mode: forwards;
+    background-size: 400% 100%;
+}
+
+@keyframes rainbow_animation { 
+    0%{background-position:0% 82%}
+    50%{background-position:100% 19%}
+    100%{background-position:0% 82%;}
+}
+
 
 .contenedorNavegacion{
     display: flex;
     justify-content: space-evenly;
-    
+    animation-name: fadeInDown;
+    animation-duration: 1s;
 }
+
+
 
 .contenedorNavegacion a{
     text-decoration: none;
@@ -32,10 +71,15 @@
 }
 
 .contenedorNavegacion li{
+    
     list-style-type: none;
     font-size: 30px;
+    transition: 0.3s;
 }
 
+.contenedorNavegacion li:hover{
+    transform: scale(1.1);
+}
 
 .portadaIndex{                                        /*Foto de Portada*/
     display: flex;
@@ -50,6 +94,8 @@
     width: 100%;
     object-fit: cover;
     border-radius: 10px;
+    animation-name: aparecer;
+    animation-duration: 2s;
 }
 
 
@@ -62,6 +108,8 @@
     box-sizing: border-box;
     margin: 1%;
     border-radius: 10px;
+    animation-name: aparecer;
+    animation-duration: 2s;
 }
 
 .tarjetaCollage{                               /*Bloque Tarjeta Collage*/
@@ -100,11 +148,18 @@
 }
 
 .tarjetaCollageArticulo__titulo{
-
+    display: inline-block;
     font-size: 30px;
     font-weight: 100;
     margin: 30px;
+    transition: 0.3s ease;
 }
+
+.tarjetaCollageArticulo__titulo:hover{
+    transform: scale(1.1);
+
+}
+
 .tarjetaCollageArticulo__parrafo{
     
     font-size: 18px;
@@ -149,9 +204,15 @@
 }
 
 .tarjetaGalletasArticulo__titulo{
+    display: inline-block;
     font-size: 30px;
     font-weight: 100;
     margin: 30px;
+    transition: 0.3s ease;
+}
+
+.tarjetaGalletasArticulo__titulo:hover{
+    transform: scale(1.1);
 }
 
 .tarjetaGalletasArticulo__parrafo{
@@ -195,9 +256,15 @@
 }
 
 .tarjetaSonidosArticulo__titulo{
+    display: inline-block;
     font-size: 30px;
     font-weight: 100;
     margin: 30px;
+    transition: 0.3s ease;
+}
+
+.tarjetaSonidosArticulo__titulo:hover{
+    transform: scale(1.1);
 }
 
 .tarjetaSonidosArticulo__parrafo{
@@ -260,9 +327,10 @@
     border: #a0c6e63c solid;
     border-radius: 10px;
     width: 100%;
-    
     margin-bottom: 1.5%;
     padding: 2%;
+    animation-name: aparecer;
+    animation-duration: 2s;
 
 }
 
@@ -286,7 +354,8 @@
     padding: 2%;
     grid-template-columns: repeat(4, auto);
     gap: 1.5rem;
-    
+    animation-name: aparecer;
+    animation-duration: 3s;
 }
 
 .item__galeriaCollage{
@@ -302,6 +371,11 @@
     width: 100%;
     object-fit: cover;
     border-radius: 10px;
+    transition: 0.3s ease;
+}
+.item__galeriaCollage img:hover{
+    transform: scale(103%);
+
 }
 
 .item__galeriaCollage h4{
@@ -310,6 +384,11 @@
     margin: 10px;
     margin-bottom: 0%;
     font-weight: 18px;
+    transition: 0.3s ease;
+}
+
+.item__galeriaCollage h4:hover{
+    transform: scale(1.1);
 }
 
 .container__galeriaGalletas{                /*Contenedor de la galería Galletas Toyota*/
@@ -321,6 +400,8 @@
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 25rem);
     gap: 1.5rem;
+    animation-name: aparecer;
+    animation-duration: 3s;
 }
 
 .item__galeriaGalletas:nth-child(1){           /*Ordenando la galería foto por foto*/
@@ -353,6 +434,11 @@
     height: 100%;
     object-fit: cover;
     border-radius: 10px;
+    transition: 0.3s ease;
+}
+
+.item__galeriaGalletas img:hover{
+    transform: scale(102%);
 }
 
 
@@ -375,6 +461,8 @@
     display: flex;
     flex-direction: column;
     grid-area: articulo;
+    animation-name: aparecer;
+    animation-duration: 2s;
 }
 
 .container__articuloSonidos h2{
@@ -398,6 +486,8 @@
     height: 100%;
     object-fit: cover;
     border-radius: 10px;
+    animation-name: aparecer;
+    animation-duration: 3s;
 }
 
 .container__soundcloud{
@@ -409,6 +499,8 @@
     width: 100%;
     height: 100%;
     border-radius: 10px;
+    animation-name: aparecer;
+    animation-duration: 2.5s;
 }
 
 .container__videos{
@@ -444,7 +536,8 @@
     flex-direction: column;
     grid-column: 2/3;
     grid-row: 1/3;
-    
+    animation-name: aparecer;
+    animation-duration: 2s;
 }
 
 .container__articuloSobreMi h2{
@@ -469,6 +562,8 @@
     height: 100%;
     object-fit: cover;
     border-radius: 10px;
+    animation-name: aparecer;
+    animation-duration: 3s;
 }
 
 .contenedor_instagram_widget_sobreMi{
@@ -500,6 +595,8 @@
     font-size: 30px;
     font-weight: 100;
     margin-bottom: 20px;
+    animation-name: aparecer;
+    animation-duration: 2s;
 }
 
 .contact_wraper{
@@ -507,6 +604,8 @@
     border-radius: 10px;
     width:  auto;
     margin: 0% 20% 0% 20%;
+    animation-name: aparecer;
+    animation-duration: 3s;
 }
 
 .fieldset{
@@ -553,19 +652,30 @@
 }
 
 .contenidoFooter__contacto{
-    
-    
     width: 300px;
-    height: 130px;
-    margin-top: 20px;
-    margin-left: 90px;
+    margin-top: 2rem;
+    margin-left: 5rem;
     line-height: 40px;
-    
+}
+
+.contenidoFooter__contacto ul{
+    display: flex;
+    flex-direction: column;
 }
 
 .contenidoFooter__contacto ul li{
+    display: inline-block;
     list-style-type: none;
     font-size: 20px;
+}
+
+.contenidoFooter__contacto ul li a{
+    display: inline-block;
+    transition: 0.3s ease;
+}
+
+.contenidoFooter__contacto ul li a:hover{
+    transform: scale(1.1);
 }
 
 .contenidoFooter__contacto ul li a{
@@ -580,32 +690,57 @@
 }
 
 .contenidoFooter__rrss{
-    
-    text-align: right;
-    margin-top: 20px;
-    margin-right: 90px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-top: 2rem;
+    margin-right: 5rem;
     width: 300px;
-    height: 80px;
     
 }
 .contenidoFooter__rrss a{
     text-decoration: none;
 }
 
+
 .contenidoFooter__rrss h3{
+    display: inline-block;
     font-size: 30px;
     font-weight: 100;
     margin-bottom: 15px;
     color: #7656a7f1;
+    transition: 0.3s ease;
 }
 
-.contenidoFooter__rrss img{
-    width: 30px;
+.contenidoFooter__rrss h3:hover{
+    transform: scale(1.1);
+}
+
+.logos{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    gap: 0.2rem;
+}
+
+.rrss_logo{
+    width: 2rem;
+    transition: 0.3s ease;
+}
+
+.rrss_logo:hover{
+    transform: scale(1.1);
 }
 
 footer p{
     text-align: center;
     padding: 10px;
+}
+
+@keyframes aparecer {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
 }
 
                                 /*MEDIA QUERIES*/
