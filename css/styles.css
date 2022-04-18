@@ -153,7 +153,6 @@
 }
 
 .item__galeriaCollage img{
-    
     width: 100%;
     border-radius: 10px;
     transition: 0.3s ease;
@@ -164,5 +163,18 @@
 }
 
 .item__galeriaCollage h5{
+    color: #7656a7f1;
+}
+
+.card img{
+    border-radius: 10px;
+    transition: 0.3s ease;
+}
+
+.card img:hover{
+    transform: scale(103%);
+}
+
+form label{                                          /*Modificando color de texto Contacto*/
     color: #7656a7f1;
 }

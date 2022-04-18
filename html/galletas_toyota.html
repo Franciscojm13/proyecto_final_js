@@ -5,84 +5,115 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="../assets/photos/favicon_poliester.png" type="image/x-icon">
-    <link rel="stylesheet" href="../css/estilos.css">
+    <!--<link rel="stylesheet" href="../css/estilos.css">-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=EB+Garamond&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../libs/bootstrap-5.1.3-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/styles.css">        <!--css nuevo que complementará a bootstrap-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <title>Poliéster | Galletas Toyota</title>
 </head>
 <body id="body">
+
     <header id="header">
-        <div id="titulo">
-            <a href="../index.html"><h1>Poliéster</h1></a>
+
+        <div class="d-flex justify-content-center mx-auto mt-3">
+            <a class="brand " href="../index.html"><h1 class=" display-5">Poliéster</h1></a>
         </div>
-        <nav>
-            <ul class="contenedorNavegacion">
-                <li><a href="../index.html">Inicio</a></li>
-                <li><a href="./collage.html">Collage</a></li>
-                <li><a href="galletas_toyota.html">Galletas Toyota</a></li>
-                <li><a href="./sonidos.html">Sonidos</a></li>
-                <li><a href="./sobre_mi.html">Sobre mi</a></li>
-                <li><a href="./contacto.html">Contacto</a></li>
-            </ul>
+
+        <nav class="navbar navbar-expand-sm container-color navbar-light m-3">
+            <div class="container-fluid">
+                <a class="navbar-brand mx-auto d-block d-sm-block d-sm-none" href="#">Menu</a>
+                <button class="navbar-toggler mx-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse " id="navbarNav">
+                    <ul class=" navbar-nav  list-unstyled text-center">
+                        <li class="nav-item px-4"><a class="nav-link" href="../index.html">Inicio</a></li>
+                        <li class="nav-item px-4"><a class="nav-link" href="collage.html">Collage</a></li>
+                        <li class="nav-item px-4"><a class="nav-link" href="./galletas_toyota.html">Galletas Toyota</a></li>
+                        <li class="nav-item px-4"><a class="nav-link" href="./sonidos.html">Sonidos</a></li>
+                        <li class="nav-item px-4"><a class="nav-link" href="./sobre_mi.html">Sobre mi</a></li>
+                        <li class="nav-item px-4"><a class="nav-link" href="./contacto.html">Contacto</a></li>
+                    </ul>
+                </div>
+            </div>
         </nav>
     </header>
 
-    <main class="container">
-        <section>
+    <main>
 
-            <article class="container__articulo">
-                <h2>Galletas Toyota</h2>
-                <p>
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur maiores accusantium dolores dicta iste ratione vitae quos magni suscipit ut, minus totam quam quae facere ad officiis sunt delectus architecto. lorem Lorem, ipsum dolor sit amet consectetur adipisicing elit. Tempore ad eveniet rerum doloribus nostrum magni reiciendis illo ratione? Placeat dolorum voluptatem a quibusdam reprehenderit possimus, hic veritatis magnam suscipit rem.
+        <div class=" container-color mx-3 mb-3 p-3">
+            <article class="card container-color card-body d-flex flex-column justify-content-center text-center mb-3 p-2 border">
+                <h2 class="card-title my-2">Galletas Toyota</h2>
+                <p class="lead">
+                    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Mollitia, quasi libero ipsam ex voluptate quaerat eius officia voluptatibus voluptates eveniet aperiam corrupti iusto sequi sit ut porro quis, sint reiciendis? Lorem ipsum dolor, sit amet consectetur adipisicing elit. Blanditiis eaque a amet, sit dolores nobis animi voluptatum labore ullam sed quidem dignissimos odio, excepturi earum aut minima. Aliquam, aut natus.
                 </p>
             </article>
-        </section>
 
-        <section class="container__galeriaGalletas">
+            <div class="container-color card-body border">
 
+                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 g-4">
+                        <div class="card-columns">
+                            <div class="card">
+                                <img src="../assets/photos/galletas toyota/AnaFunk010.JPG" class="card-img-top" alt="...">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card">
+                                <img src="../assets/photos/galletas toyota/Cementerio_Zenit12_002.jpg" class="card-img-top" alt="...">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card">
+                                <img src="../assets/photos/galletas toyota/IMG_9335.jpg" class="card-img-top" alt="...">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card">
+                                <img src="../assets/photos/galletas toyota/San_Pedro_1er003.jpg" class="card-img-top" alt="...">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card">
+                                <img src="../assets/photos/galletas toyota/San_Pedro_1er007-2.jpg" class="card-img-top" alt="...">
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="card">
+                                <img src="../assets/photos/galletas toyota/San_Pedro_3ro017-2.jpg" class="card-img-top" alt="...">
+                            </div>
+                        </div>
+                    </div> 
+                    
+                    
+            </div>
+                
 
-            <div class="item__galeriaGalletas">
-                <img src="../assets/photos/galletas toyota/Cementerio_Zenit12_002.jpg" alt="cementerio" >
-            </div>
-            <div class="item__galeriaGalletas">
-                <img src="../assets/photos/galletas toyota/AnaFunk010.JPG" alt="tocata" >
-            </div>
-            <div class="item__galeriaGalletas">
-                <img src="../assets/photos/galletas toyota/IMG_9335.jpg" alt="pipo" >
-            </div>
-            <!--<div class="item__galeriaGalletas">
-                <img src="../assets/photos/galletas toyota/San_Pedro_1er003.jpg" alt="sanpedro003" >
-            </div>-->
-            <div class="item__galeriaGalletas">
-                <img src="../assets/photos/galletas toyota/San_Pedro_1er007-2.jpg" alt="sanpedro007" >
-            </div>
-            <div class="item__galeriaGalletas">
-                <img src="../assets/photos/galletas toyota/San_Pedro_3ro017-2.jpg" alt="sanpedro017" >
-            </div>
-            
-        </section>
-
+        </div>
 
     </main>
 
-    <footer id="footer">
+    <footer class="container-fluid bg-footer ">
 
-        <div class="contenidoFooter">
+        <div class=" d-flex justify-content-between">
 
-            <section class="contenidoFooter__contacto">
-                <ul>
-                    <li><a href="./html/sobre_mi.html">Sobre mi</a></li>
-                    <li><a href="./html/contacto.html">Contacto</a></li>
+            <section class="px-5 mt-3">
+                <ul class="list-unstyled p-0 ">
+                    <li class=""><a class="nav-link p-0" href="./collage.html">Collage</a></li>
+                    <li class=""><a class="nav-link p-0" href="./galletas_toyota.html">Galletas Toyota</a></li>
+                    <li class=""><a class="nav-link p-0" href="./sonidos.html">Sonidos</a></li>
+                    <li class=""><a class="nav-link p-0" href="./sobre_mi.html">Sobre mi</a></li>
+                    <li class="m"><a class="nav-link p-0" href="./contacto.html">Contacto</a></li>
                 </ul>
     
-                <h4>mail: amigo.poliester@gmail.com</h4>
+                <h5>mail: amigo.poliester@gmail.com</h5>
             </section>
     
-            <section class="contenidoFooter__rrss">
-                <a href="../index.html"><h3>Poliéster</h3></a>
-                <div class="logos">
+            <section class=" px-5 mt-3">
+                <a class="index_footer" href="../index.html"><h1>Poliéster</h1></a>
+                <div class="d-flex justify-content-around">
                     <a href="https://www.instagram.com/amigo.poliester/?hl=es-la" target="_blank"><img class="rrss_logo" src="../assets/logos/instagram.png" alt="logo_instagram"></a>
                     <a href="https://www.flickr.com/photos/158435061@N05/albums" target="_blank"><img class="rrss_logo" src="../assets/logos/flickr.png" alt="logo_flickr"></a>
                     <a href="https://soundcloud.com/user-536569518?utm_source=clipboard&utm_medium=text&utm_campaign=social_sharing" target="_blank"><img class="rrss_logo" src="../assets/logos/soundcloud.png" alt="logo_soundcloud"></a>
@@ -91,10 +122,9 @@
 
         </div>
 
-        
-        <p>Copyright © Todos los derechos reservados.</p>
+        <p class="text-center m-0 p-3">Copyright © Todos los derechos reservados.</p>
 
     </footer>
-
+    <script src="../libs/bootstrap-5.1.3-dist/js/bootstrap.min.js"></script>
 </body>
 </html>
