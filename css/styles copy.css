@@ -1,0 +1,180 @@
+*{
+    margin: 0%;
+    padding: 0%;
+    box-sizing: border-box;
+    font-family: 'EB Garamond', serif;
+}
+
+#body{
+    background-color:#EBDCD9;
+}
+
+.brand{                                                                          /*Header*/
+    text-decoration: none;
+}
+
+.brand h1{
+    color: black;
+    animation-name: fadeInDown;
+    animation-duration: 1s;
+    animation-iteration-count: 1;
+    transition: 0.3s ease;
+}
+
+.brand h1:hover{
+    transform: scale(1.1);
+    background-color: #c2eaba;
+    background: linear-gradient(to right, #6666ff, #0099ff , #00ff00, #ff3399, #6666ff);
+    background-size: 1800% 1800%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    border: 2px black;
+    animation: rainbow_animation 2s ease-in-out infinite;
+    animation-fill-mode: forwards;
+    background-size: 400% 100%;
+}
+
+@keyframes rainbow_animation { 
+    0%{background-position:0% 82%}
+    50%{background-position:100% 19%}
+    100%{background-position:0% 82%;}
+}
+
+.container-color{
+    background-color: #F0EBE8;
+    border-radius: 10px;
+}
+
+.navbar-expand-sm{
+    color: #7656a7f1;
+    animation-name: fadeInDown;
+    animation-duration: 1s;
+    animation-iteration-count: 1;
+}
+
+.navbar-light .navbar-brand{
+    color: #7656a7f1;
+}
+
+.navbar-expand-sm .navbar-collapse{
+    justify-content: space-around;
+}
+.navbar-expand-sm .navbar-nav{
+    display: flex;
+}
+
+.navbar-light .navbar-nav .nav-link{
+    color: #7656a7f1;
+    font-size: 2.1vw;
+}
+
+.navbar-light .navbar-nav .nav-link:hover{
+    color: #7656a7f1;
+}
+
+.carousel-inner {                                                               /*Modificando Carousel*/
+    border-radius: 10px;
+    background-color: rgba(0,0,0,0);
+    overflow: hidden;
+}
+
+.card {                                                                      /*Modificando las tarjetas del Index*/
+    flex-direction: row;
+    border-radius: 10px;
+}
+
+.card-body a{
+    text-decoration: none;
+    transition: 0.3s ease;
+}
+
+.card-body a:hover{
+    transform: scale(1.1);
+}
+
+.card-title{
+    color: #7656a7f1;
+}
+
+.card-img{
+    border-radius: 10px;
+    width: 54%;
+    height: auto;
+    object-fit: cover;
+}
+
+.bg-footer{                                                            /*Modificando Footer*/
+    background-color: #a3c9e9ac;
+    border-top: black solid;
+}
+
+.index_footer{
+    display: inline-block;
+    text-decoration: none;
+    color: #7656a7f1;
+    transition: 0.3s ease;
+}
+
+.index_footer:hover{
+    transform: scale(1.1);
+    color: #7656a7f1;
+}
+
+.rrss_logo{
+    width: 2rem;
+    transition: 0.3s ease;
+}
+
+.rrss_logo:hover{
+    transform: scale(1.1);
+}
+
+.list-unstyled{
+    font-size: 22px;
+    line-height: 2.5rem;
+}
+
+.list-unstyled a{
+    display: inline-block;
+    color: #7656a7f1;
+    transition: 0.3s ease;
+}
+
+.list-unstyled a:hover{
+    transform: scale(1.1);
+    color: #7656a7f1;
+}
+
+.item__galeriaCollage{                                                 /* Modificando la galería Collage*/
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.item__galeriaCollage img{
+    width: 100%;
+    border-radius: 10px;
+    transition: 0.3s ease;
+}
+
+.item__galeriaCollage img:hover{
+    transform: scale(105%);
+}
+
+.item__galeriaCollage h5{
+    color: #7656a7f1;
+}
+
+.card img{
+    border-radius: 10px;
+    transition: 0.3s ease;
+}
+
+.card img:hover{
+    transform: scale(103%);
+}
+
+form label{                                          /*Modificando color de texto Contacto*/
+    color: #7656a7f1;
+}

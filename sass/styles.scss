@@ -1,0 +1,28 @@
+//variables:
+$colorbg: #EBDCD9;
+$secondary-color: #a3c9e9ac;
+$container-color: #F0EBE8;
+$title-color: #7656a7f1;
+$border-radius: 10px; 
+$font: 'EB Garamond', serif;
+$animacion-inicio: fadeInDown;
+
+//modulos:
+
+@import "reset";
+@import "header";
+@import "carousel";
+@import "cards";
+@import "footer";
+
+
+#body{
+    background-color: $colorbg;
+}
+
+.contenedor{
+    background-color: $container-color;
+    border-radius: $border-radius;
+}
+
+
