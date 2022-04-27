@@ -2,18 +2,18 @@
 //Footer
 
 .bg-footer{
-    background-color: $secondary-color;
+    background-color: map-get($map: $color-map, $key: secondary-color );
     border-top: black solid;
 }
 
 .index_footer{
     display: inline-block;
     text-decoration: none;
-    color: $title-color;
+    color: map-get($map: $color-map, $key: title-color );
     transition: 0.3s ease;
     &:hover{
         transform: scale(1.1);
-        color: $title-color;
+        color: map-get($map: $color-map, $key: title-color );
     }
 }
 
@@ -31,11 +31,11 @@
 
     a{
         display: inline-block;
-        color: $title-color;
+        color: map-get($map: $color-map, $key: title-color );
         transition: 0.3s ease;
         &:hover{
             transform: scale(1.1);
-            color: $title-color;
+            color: map-get($map: $color-map, $key: title-color );
         }
     }
 }

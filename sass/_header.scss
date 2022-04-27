@@ -6,9 +6,7 @@
 
     h1{
         color: black;
-        animation-name: fadeInDown;
-        animation-duration: 1s;
-        animation-iteration-count: 1;
+        @include animation_fadeInDown();
         transition: 0.3s ease;
         &:hover{
             transform: scale(1.1);
@@ -25,7 +23,6 @@
 
         }
         
-
     }
     @keyframes rainbow_animation { 
         0%{background-position:0% 82%}
@@ -34,30 +31,39 @@
     }
 }
 
-.navbar-expand-sm{
-    color: #7656a7f1;
-    animation-name: fadeInDown;
-    animation-duration: 1s;
-    animation-iteration-count: 1;
+.navbar{
+    @include animation_fadeInDown();
+}
+
+.navbar-expand-md{
+    color: map-get($map: $color-map, $key: title-color );
+}
+
+.navbar-light {
+    color: map-get($map: $color-map, $key: title-color );
 }
 
 .navbar-light .navbar-brand{
-    color: $title-color;
+    @extend .navbar-light;
+    transition: 0.3s ease;
+    &:hover{
+        color: map-get($map: $color-map, $key: title-color );
+        transform: scale(1.1);
+    }
 }
 
 .navbar-collapse{
     justify-content: space-around;
-    
 }
 .navbar-nav{
+    @extend .navbar-light;
     display: flex;
 }
 
 .navbar-light .navbar-nav .nav-link{
-    color: $title-color;
-    font-size: 2.1vw;
+    @extend .navbar-light;
+    &:hover{
+        color: map-get($map: $color-map, $key: title-color );
+    }
 }
 
-.navbar-light .navbar-nav .nav-link:hover{
-    color: $title-color;
-}

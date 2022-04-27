@@ -6,6 +6,15 @@
     border-radius: $border-radius;
     border: none;
 
+    &-title{
+        color: map-get($map: $color-map, $key: title-color );
+    }
+    
+    &-img{
+        border-radius: $border-radius;
+        object-fit: cover;
+    }
+
     a{
         text-decoration: none;
         transition: 0.3s ease;
@@ -15,13 +24,14 @@
     }
 }
 
-.card-title{
-    color: $title-color;
+.card-img-top{
+    border-radius: $border-radius;
 }
-
-.card-img{
-    border-radius: 10px;
-    object-fit: cover;
+.imagenSobreMi img{
+    @extend .card-img-top;
+}
+.imagenSonidos img{
+    @extend .card-img-top;
 }
 
 @media screen and (min-width:768px){
@@ -31,5 +41,5 @@
 }
 
 .border {
-    border: 1px solid $secondary-color !important;
+    border: 1px solid map-get($map: $color-map, $key: secondary-color ) !important;
 }

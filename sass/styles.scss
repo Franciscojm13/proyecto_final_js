@@ -1,27 +1,21 @@
-//variables:
-$colorbg: #EBDCD9;
-$secondary-color: #a3c9e9ac;
-$container-color: #F0EBE8;
-$title-color: #7656a7f1;
-$border-radius: 10px; 
-$font: 'EB Garamond', serif;
-$animacion-inicio: fadeInDown;
 
 //modulos:
-
+@import "variables";
+@import "mixin";
 @import "reset";
 @import "header";
 @import "carousel";
 @import "cards";
+@import "galeriaCollage";
 @import "footer";
 
 
 #body{
-    background-color: $colorbg;
+    background-color: map-get($map: $color-map, $key: colorbg);
 }
 
 .contenedor{
-    background-color: $container-color;
+    background-color: map-get($map: $color-map, $key: container-color);
     border-radius: $border-radius;
 }
 

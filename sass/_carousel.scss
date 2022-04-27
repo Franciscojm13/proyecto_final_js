@@ -1,8 +1,12 @@
 
 //Carousel:
 
-.carousel-inner {
-    border-radius: 10px;
-    background-color: rgba(0,0,0,0);
-    overflow: hidden;
+.carousel{
+    @include animation_fadeInDown();
+
+    &-inner{
+        border-radius: 10px;
+        background-color: rgba(0,0,0,0);
+        overflow: hidden;
+    }
 }
