@@ -1,0 +1,7 @@
+//Mixin:
+
+@mixin animation_fadeInDown {
+    animation-name: fadeInDown;
+    animation-duration: 1s;
+    animation-iteration-count: 1;
+}

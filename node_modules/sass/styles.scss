@@ -1,0 +1,22 @@
+
+//modulos:
+@import "variables";
+@import "mixin";
+@import "reset";
+@import "header";
+@import "carousel";
+@import "cards";
+@import "galeriaCollage";
+@import "footer";
+
+
+#body{
+    background-color: map-get($map: $color-map, $key: colorbg);
+}
+
+.contenedor{
+    background-color: map-get($map: $color-map, $key: container-color);
+    border-radius: $border-radius;
+}
+
+

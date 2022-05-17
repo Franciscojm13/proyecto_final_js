@@ -1,0 +1,45 @@
+
+//Tarjetas:
+
+.card {
+    flex-direction: row;
+    border-radius: $border-radius;
+    border: none;
+
+    &-title{
+        color: map-get($map: $color-map, $key: title-color );
+    }
+    
+    &-img{
+        border-radius: $border-radius;
+        object-fit: cover;
+    }
+
+    a{
+        text-decoration: none;
+        transition: 0.3s ease;
+        &:hover{
+            transform: scale(1.1);
+        }
+    }
+}
+
+.card-img-top{
+    border-radius: $border-radius;
+}
+.imagenSobreMi img{
+    @extend .card-img-top;
+}
+.imagenSonidos img{
+    @extend .card-img-top;
+}
+
+@media screen and (min-width:768px){
+    .card-img{
+        width: 54%;
+    }
+}
+
+.border {
+    border: 1px solid map-get($map: $color-map, $key: secondary-color ) !important;
+}

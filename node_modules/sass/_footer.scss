@@ -1,0 +1,44 @@
+
+//Footer
+
+.bg-footer{
+    background-color: map-get($map: $color-map, $key: secondary-color );
+    border-top: black solid;
+}
+
+.index_footer{
+    display: inline-block;
+    text-decoration: none;
+    color: map-get($map: $color-map, $key: title-color );
+    transition: 0.3s ease;
+    &:hover{
+        transform: scale(1.1);
+        color: map-get($map: $color-map, $key: title-color );
+    }
+}
+
+.rrss_logo{
+    width: 2rem;
+    transition: 0.3s ease;
+    &:hover{
+        transform: scale(1.1);
+    }
+}
+
+.list-unstyled{
+    font-size: 22px;
+    line-height: 2.5rem;
+
+    a{
+        display: inline-block;
+        color: map-get($map: $color-map, $key: title-color );
+        transition: 0.3s ease;
+        &:hover{
+            transform: scale(1.1);
+            color: map-get($map: $color-map, $key: title-color );
+        }
+    }
+}
+
+
+
