@@ -129,7 +129,7 @@
   transition: 0.3s ease;
 }
 .item__galeriaCollage img:hover {
-  transform: scale(105%);
+  transform: scale(103%);
 }
 .item__galeriaCollage h5 {
   color: rgba(118, 86, 167, 0.9450980392);
