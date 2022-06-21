@@ -19,5 +19,8 @@
   "devDependencies": {
     "node-sass": "^7.0.1",
     "nodemon": "^2.0.15"
+  },
+  "dependencies": {
+    "react-toastify": "^9.0.5"
   }
 }

@@ -1,11 +1,13 @@
-//variables globales:
 
-let miCarrito=[];
 let precioTotal = 0;
-let iva=0.19;
+const iva=0.19;
 
-if(localStorage.getItem("miCarrito")!=null){                    //condicional que revisa si hay cargado local storage
-    miCarrito=JSON.parse(localStorage.getItem("miCarrito"));          //convertimos lo guardado en el storage a objeto javascript
+const miCarrito =JSON.parse(localStorage.getItem("miCarrito")) || [];    //operador lógico or, asignación condicional
+
+insertarCarritoStorage();
+resultadoTablaTotal();
+
+function insertarCarritoStorage(){
     sumarTotalStorage(miCarrito);
     console.log("El carrito actualmente contiene: "+miCarrito.length+ " collages. Precio total: "+precioTotal);
     console.log(miCarrito);
@@ -17,12 +19,11 @@ if(localStorage.getItem("miCarrito")!=null){                    //condicional qu
             <td>${productoStorage.precio}</td>
         </tr>`;
     })
-    resultadoTablaTotal();
 }
 
 function sumarTotalStorage(carroActual){           //función sumatoria de precios solo para lo guardado en el storage
     for(const producto of carroActual){
-        precioTotal=precioTotal+producto.precio;
+        precioTotal+=producto.precio;       //sugar syntax
     }
 }
 
@@ -44,7 +45,7 @@ function insertarGaleria(){                                  //función que inse
         </div>`;
     }
     productosCollage.forEach(producto=>{                                              //asignamos un evento click por cada botón
-        document.getElementById(`btn_${producto.id}`).addEventListener('click', function(){       
+        document.getElementById(`btn_${producto.id}`).addEventListener('click', function(){ 
             agregarAlCarro(producto);
         })
     });
@@ -52,7 +53,7 @@ function insertarGaleria(){                                  //función que inse
 
 function agregarAlCarro(productoAgregado){        //función que pushea cada producto nuevo al array del carrito
     miCarrito.push(productoAgregado);
-    precioTotal=precioTotal+productoAgregado.precio;
+    precioTotal+=productoAgregado.precio;
     console.log("Se ha agregado collage "+productoAgregado.nombre+" al carrito. El carrito actualmente contiene: "+miCarrito.length+ " collages. Precio total: "+precioTotal)
     console.log(miCarrito);
     document.getElementById("tablaBody").innerHTML+=`
@@ -64,14 +65,27 @@ function agregarAlCarro(productoAgregado){        //función que pushea cada pro
     `;
     resultadoTablaTotal();
     localStorage.setItem("miCarrito", JSON.stringify(miCarrito));    //guardamos el carrito en el local storage mediante setItem y JSON.stringify
-    alert("Se ha agregado el producto "+productoAgregado.nombre+" al carro. (Carrito de compras al final de la página)");
+    
+    Toastify({
+        text: "Ha agregado un producto a al carrito! :)",
+        duration: 3000,
+        newWindow: true,
+        close: true,
+        gravity: "top", 
+        position: "right", 
+        stopOnFocus: true, 
+        style: {
+            background: "background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%)"
+        },
+        
+    }).showToast();
 
 };
 
 function resultadoTablaTotal(){
 
     let precioConIva=precioTotal+precioTotal*iva;
-    
+
     document.getElementById("tablaTotal").innerHTML=`
         <tr>
             <th scope="col"></th>
