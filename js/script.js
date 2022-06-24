@@ -2,6 +2,7 @@
 let precioTotal = 0;
 const iva=0.19;
 
+
 const miCarrito =JSON.parse(localStorage.getItem("miCarrito")) || [];    //operador lógico or, asignación condicional
 
 insertarCarritoStorage();
@@ -35,15 +36,34 @@ function insertarGaleria(){                                  //función que inse
     for (const producto of productosCollage){
         galeriaProductos.innerHTML+=`
         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-3 d-flex">
-            <div class="item__galeriaCollage">
-                <img src=${producto.foto} alt="microbloqueo_${producto.id}">
+            <div class="item__galeriaCollage ">
+                <div><a href="#" id="vistaPreviaImg_${producto.id}"><img src=${producto.foto} alt="microbloqueo_${producto.id}"></a></div>
                 <h5 class="text-center my-2">${producto.nombre}</h5>
                 <p class="text-center mb-2"><strong>$ ${producto.precio} CLP</strong></p>
                 <p class="text-center mb-1">ID: ${producto.id} </p>
-                <button id="btn_${producto.id}" class="btn btn-danger">Agregar al carrito</button>
+                <div class="col text-center">
+                    <button id="btn_${producto.id}" class="btn btn-danger btn-sm">Agregar al carrito</button>
                 </div>
+            </div>
         </div>`;
     }
+
+    productosCollage.forEach(producto=>{                                              //usando sweet alert como vista previa del producto a agregar al carro
+        document.getElementById(`vistaPreviaImg_${producto.id}`).addEventListener('click', function(){
+            Swal.fire({
+                title: 'Nombre Collage',
+                text: 'descripción producto',
+                imageUrl: "../assets/photos/microbloqueo_1.jpg",
+                imageWidth: 390,
+                imageHeight: 520,
+                imageAlt: 'Custom image',
+                showCloseButton: true,
+                focusConfirm: false,
+                confirmButtonText: '<i class="fa fa-thumbs-up"></i> Agregar al carrito',
+            })
+        })
+    })
+
     productosCollage.forEach(producto=>{                                              //asignamos un evento click por cada botón
         document.getElementById(`btn_${producto.id}`).addEventListener('click', function(){ 
             agregarAlCarro(producto);
@@ -67,7 +87,7 @@ function agregarAlCarro(productoAgregado){        //función que pushea cada pro
     localStorage.setItem("miCarrito", JSON.stringify(miCarrito));    //guardamos el carrito en el local storage mediante setItem y JSON.stringify
     
     Toastify({
-        text: "Ha agregado un producto a al carrito! :)",
+        text: "Ha agregado un producto al carrito! :)",
         duration: 3000,
         newWindow: true,
         close: true,
