@@ -33,42 +33,55 @@ let galeriaProductos=document.getElementById("galeriaProductos");           //no
 insertarGaleria();
 
 function insertarGaleria(){                                  //función que inserta toda la galería de productos
-    for (const producto of productosCollage){
-        galeriaProductos.innerHTML+=`
-        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-3 d-flex">
-            <div class="item__galeriaCollage ">
-                <div><a href="#" id="vistaPreviaImg_${producto.id}"><img src=${producto.foto} alt="microbloqueo_${producto.id}"></a></div>
-                <h5 class="text-center my-2">${producto.nombre}</h5>
-                <p class="text-center mb-2"><strong>$ ${producto.precio} CLP</strong></p>
-                <p class="text-center mb-1">ID: ${producto.id} </p>
-                <div class="col text-center">
-                    <button id="btn_${producto.id}" class="btn btn-danger btn-sm">Agregar al carrito</button>
-                </div>
-            </div>
-        </div>`;
-    }
+    fetch("/js/productos.json")
+    .then((resp)=>resp.json())
+    .then((data)=>{
+        let productosCollage = data.productosCollageJson;
 
-    productosCollage.forEach(producto=>{                                              //usando sweet alert como vista previa del producto a agregar al carro
-        document.getElementById(`vistaPreviaImg_${producto.id}`).addEventListener('click', function(){
-            Swal.fire({
-                title: 'Nombre Collage',
-                text: 'descripción producto',
-                imageUrl: "../assets/photos/microbloqueo_1.jpg",
-                imageWidth: 390,
-                imageHeight: 520,
-                imageAlt: 'Custom image',
-                showCloseButton: true,
-                focusConfirm: false,
-                confirmButtonText: '<i class="fa fa-thumbs-up"></i> Agregar al carrito',
+        for (const producto of productosCollage){
+            galeriaProductos.innerHTML+=`
+            <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12 mb-3 d-flex">
+                <div class="item__galeriaCollage ">
+                    <div><a href="#" id="vistaPreviaImg_${producto.id}"><img src=${producto.foto} alt="microbloqueo_${producto.id}"></a></div>
+                    <h5 class="text-center my-2">${producto.nombre}</h5>
+                    <p class="text-center mb-2"><strong>$ ${producto.precio} CLP</strong></p>
+                    <p class="text-center mb-1">ID: ${producto.id} </p>
+                    <div class="col text-center">
+                        <button id="btn_${producto.id}" class="btn btn-danger btn-sm">Agregar al carrito</button>
+                    </div>
+                </div>
+            </div>`;
+        }
+    
+
+        productosCollage.forEach(producto=>{                                              //usando sweet alert como vista previa del producto a agregar al carro
+            document.getElementById(`vistaPreviaImg_${producto.id}`).addEventListener('click', function(){
+                Swal.fire({
+                    title: `${producto.nombre}`,
+                    text: 'Collage análogo 13x18 cm impreso en papel Fine Art',
+                    imageUrl: `${producto.foto}`,
+                    imageWidth: 390,
+                    imageHeight: 520,
+                    imageAlt: 'Custom image',
+                    showCloseButton: true,
+                    focusConfirm: false,
+                    confirmButtonText: '<i class="fa fa-thumbs-up"></i> Agregar al carrito',
+                })
+                .then((resultado)=>{                  
+                    if(resultado.isConfirmed){
+                        agregarAlCarro(producto);
+                    }
+                })
+
             })
         })
-    })
 
-    productosCollage.forEach(producto=>{                                              //asignamos un evento click por cada botón
-        document.getElementById(`btn_${producto.id}`).addEventListener('click', function(){ 
-            agregarAlCarro(producto);
-        })
-    });
+        productosCollage.forEach(producto=>{                                              //asignamos un evento click por cada botón
+            document.getElementById(`btn_${producto.id}`).addEventListener('click', function(){ 
+                agregarAlCarro(producto);
+            })
+        });
+    })
 }
 
 function agregarAlCarro(productoAgregado){        //función que pushea cada producto nuevo al array del carrito
