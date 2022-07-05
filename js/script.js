@@ -33,7 +33,7 @@ let galeriaProductos=document.getElementById("galeriaProductos");           //no
 insertarGaleria();
 
 function insertarGaleria(){                                  //función que inserta toda la galería de productos
-    fetch("/js/productos.json")
+    fetch("https://franciscojm13.github.io/proyecto_final_js/js/productos.json")
     .then((resp)=>resp.json())
     .then((data)=>{
         let productosCollage = data.productosCollageJson;
