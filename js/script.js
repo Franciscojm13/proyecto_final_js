@@ -2,6 +2,16 @@
 let precioTotal = 0;
 const iva=0.19;
 
+class NuevoProducto{
+    constructor(objetoJSON){
+        this.id=objetoJSON.id;
+        this.nombre=objetoJSON.nombre;
+        this.foto=objetoJSON.foto;
+        this.precio=objetoJSON.precio;
+        this.cantidad=1;
+    }
+}
+
 
 const miCarrito =JSON.parse(localStorage.getItem("miCarrito")) || [];    //operador lógico or, asignación condicional
 
@@ -9,30 +19,37 @@ insertarCarritoStorage();
 resultadoTablaTotal();
 
 function insertarCarritoStorage(){
-    sumarTotalStorage(miCarrito);
-    console.log("El carrito actualmente contiene: "+miCarrito.length+ " collages. Precio total: "+precioTotal);
+    let precioTotalStorage=sumarTotal(miCarrito);
+    console.log("El carrito actualmente contiene: "+miCarrito.length+ " collages. Precio total: "+precioTotalStorage);
     console.log(miCarrito);
     miCarrito.forEach(productoStorage=>{                        //insertamos en el html lo convertido previamente 
+        // let nuevoProducto= new NuevoProducto(productoStorage)
+        
         document.getElementById("tablaBody").innerHTML+=`
         <tr>
             <td>${productoStorage.id}</td>
             <td>${productoStorage.nombre}</td>
-            <td>${productoStorage.precio}</td>
+            <td id="cantidad_${productoStorage.id}">${productoStorage.cantidad}</td>
+            <td id="precio_${productoStorage.id}">${productoStorage.precio*productoStorage.cantidad}</td>
         </tr>`;
     })
 }
 
-function sumarTotalStorage(carroActual){           //función sumatoria de precios solo para lo guardado en el storage
+//función sumatoria de precios del contenido del carrito
+function sumarTotal(carroActual){
     for(const producto of carroActual){
-        precioTotal+=producto.precio;       //sugar syntax
+        precioTotal+=producto.precio*producto.cantidad;
+        
     }
+    return precioTotal;
 }
-
-let galeriaProductos=document.getElementById("galeriaProductos");           //nodo padre de la galería
+//capturamos el nodo padre de la galería:
+let galeriaProductos=document.getElementById("galeriaProductos");
 
 insertarGaleria();
 
-function insertarGaleria(){                                  //función que inserta toda la galería de productos
+//función que inserta toda la galería de productos desde un archivo .json:
+function insertarGaleria(){
     fetch("https://franciscojm13.github.io/proyecto_final_js/js/productos.json")
     .then((resp)=>resp.json())
     .then((data)=>{
@@ -53,8 +70,8 @@ function insertarGaleria(){                                  //función que inse
             </div>`;
         }
     
-
-        productosCollage.forEach(producto=>{                                              //usando sweet alert como vista previa del producto a agregar al carro
+        //usando sweet alert como vista previa del producto a agregar al carro:
+        productosCollage.forEach(producto=>{                
             document.getElementById(`vistaPreviaImg_${producto.id}`).addEventListener('click', function(){
                 Swal.fire({
                     title: `${producto.nombre}`,
@@ -75,30 +92,46 @@ function insertarGaleria(){                                  //función que inse
 
             })
         })
-
-        productosCollage.forEach(producto=>{                                              //asignamos un evento click por cada botón
+        //asignamos un evento click por cada botón:
+        productosCollage.forEach(producto=>{
             document.getElementById(`btn_${producto.id}`).addEventListener('click', function(){ 
                 agregarAlCarro(producto);
             })
         });
     })
-}
+};
 
-function agregarAlCarro(productoAgregado){        //función que pushea cada producto nuevo al array del carrito
-    miCarrito.push(productoAgregado);
-    precioTotal+=productoAgregado.precio;
-    console.log("Se ha agregado collage "+productoAgregado.nombre+" al carrito. El carrito actualmente contiene: "+miCarrito.length+ " collages. Precio total: "+precioTotal)
-    console.log(miCarrito);
-    document.getElementById("tablaBody").innerHTML+=`
-        <tr>
-            <td>${productoAgregado.id}</td>
-            <td>${productoAgregado.nombre}</td>
-            <td>${productoAgregado.precio}</td>
-        </tr>
-    `;
+//función que pushea cada producto nuevo al array del carrito:
+function agregarAlCarro(productoAgregado){
+    //se verifica si actualmente existe el producto en el carro:
+    let verificadorDeCantidad=miCarrito.find(producto=>producto.id == productoAgregado.id);
+    if(verificadorDeCantidad==undefined){
+        let nuevoProducto= new NuevoProducto(productoAgregado);
+        miCarrito.push(nuevoProducto);
+        precioTotal+=nuevoProducto.precio;
+        console.log("Se ha agregado collage "+nuevoProducto.nombre+" al carrito. El carrito actualmente contiene: "+miCarrito.length+ " collages. Precio total: "+precioTotal)
+        console.log(miCarrito);
+        document.getElementById("tablaBody").innerHTML+=`
+            <tr>
+                <td>${nuevoProducto.id}</td>
+                <td>${nuevoProducto.nombre}</td>
+                <td id="cantidad_${nuevoProducto.id}">${nuevoProducto.cantidad}</td>
+                <td id="precio_${nuevoProducto.id}">${nuevoProducto.precio}</td>
+                <td><button class='btn btn-light' onclick='eliminarProducto(${nuevoProducto.id})'>hola</button>
+            </tr>
+        `;
+        
+    } else{
+        let posicionEnCarrito=miCarrito.findIndex(producto=>producto.id == productoAgregado.id);
+        miCarrito[posicionEnCarrito].cantidad += 1;
+        let precioXcantidad=productoAgregado.precio*miCarrito[posicionEnCarrito].cantidad;
+        document.getElementById(`cantidad_${productoAgregado.id}`).innerHTML=miCarrito[posicionEnCarrito].cantidad;
+        document.getElementById(`precio_${productoAgregado.id}`).innerHTML=precioXcantidad;
+
+    }
+    sumarTotal(miCarrito)
     resultadoTablaTotal();
-    localStorage.setItem("miCarrito", JSON.stringify(miCarrito));    //guardamos el carrito en el local storage mediante setItem y JSON.stringify
-    
+    localStorage.setItem("miCarrito", JSON.stringify(miCarrito));
     Toastify({
         text: "Ha agregado un producto al carrito! :)",
         duration: 3000,
@@ -112,9 +145,9 @@ function agregarAlCarro(productoAgregado){        //función que pushea cada pro
         },
         
     }).showToast();
-
 };
 
+//función que imprime los totales de la tabla:
 function resultadoTablaTotal(){
 
     let precioConIva=precioTotal+precioTotal*iva;
@@ -123,14 +156,17 @@ function resultadoTablaTotal(){
         <tr>
             <th scope="col"></th>
             <th scope="col"></th>
+            <th scope="col"></th>
             <th scope="col">Subtotal: $ ${precioTotal} CLP</th>
         </tr>
         <tr>
             <th scope="col"></th>
             <th scope="col"></th>
+            <th scope="col"></th>
             <th scope="col">IVA (19%): $ ${precioTotal*iva} CLP</th>
         </tr>
         <tr>
+            <th scope="col"></th>
             <th scope="col"></th>
             <th scope="col"></th>
             <th scope="col">Total: $ ${precioConIva} CLP</th>
