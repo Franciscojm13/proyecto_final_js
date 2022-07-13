@@ -12,37 +12,70 @@ class NuevoProducto{
     }
 }
 
-
 const miCarrito =JSON.parse(localStorage.getItem("miCarrito")) || [];    //operador lógico or, asignación condicional
 
 insertarCarritoStorage();
 resultadoTablaTotal();
 
 function insertarCarritoStorage(){
-    let precioTotalStorage=sumarTotal(miCarrito);
-    console.log("El carrito actualmente contiene: "+miCarrito.length+ " collages. Precio total: "+precioTotalStorage);
+    let precioTotalStorage=sumarTotalStorage(miCarrito);
+    console.log("El carrito actualmente contiene los siguientes porductos y su precio total es de "+precioTotalStorage);
     console.log(miCarrito);
-    miCarrito.forEach(productoStorage=>{                        //insertamos en el html lo convertido previamente 
-        // let nuevoProducto= new NuevoProducto(productoStorage)
-        
+    miCarrito.forEach(productoStorage=>{                        //insertamos en el html lo convertido previamente         
         document.getElementById("tablaBody").innerHTML+=`
-        <tr>
+        <tr id=filaProducto_${productoStorage.id}>
             <td>${productoStorage.id}</td>
             <td>${productoStorage.nombre}</td>
             <td id="cantidad_${productoStorage.id}">${productoStorage.cantidad}</td>
             <td id="precio_${productoStorage.id}">${productoStorage.precio*productoStorage.cantidad}</td>
+            <td><button id='quitar_${productoStorage.id}' class='btn btn-light'>🗑️</button></td>
         </tr>`;
+    })
+    miCarrito.forEach(producto=>{
+        document.getElementById(`quitar_${producto.id}`).addEventListener('click', ()=>{ 
+            console.log(`Se ha quitado una unidad del producto ${producto.nombre}`);
+            producto.cantidad-=1;
+            document.getElementById(`cantidad_${producto.id}`).innerHTML=producto.cantidad;
+            let precioXcantidad=producto.cantidad*producto.precio;
+            document.getElementById(`precio_${producto.id}`).innerHTML=precioXcantidad;
+            restarProductoDelTotal(`${producto.id}`);
+            
+            console.log(precioTotal);   //console de prueba
+            resultadoTablaTotal();
+            if(producto.cantidad<=0){
+                let indice=miCarrito.findIndex(prod=>prod.id==`${producto.id}`);
+                miCarrito.splice(indice, 1);
+                let filaProductoQuitado=document.getElementById(`filaProducto_${producto.id}`);
+                document.getElementById("tablaBody").removeChild(filaProductoQuitado);
+                resultadoTablaTotal();
+            }
+            console.log(miCarrito);
+            localStorage.setItem("miCarrito", JSON.stringify(miCarrito));
+            
+        })
     })
 }
 
-//función sumatoria de precios del contenido del carrito
-function sumarTotal(carroActual){
+//función que resta un producto del precio total:
+function restarProductoDelTotal(idProductoQuitar){
+    let indice=miCarrito.findIndex(producto=>producto.id==idProductoQuitar)
+        precioTotal=precioTotal-miCarrito[indice].precio;
+}
+
+//función sumatoria de precios del storage:
+function sumarTotalStorage(carroActual){
     for(const producto of carroActual){
-        precioTotal+=producto.precio*producto.cantidad;
+        precioTotal=precioTotal+producto.precio*producto.cantidad;
         
     }
     return precioTotal;
 }
+
+function sumarProductoAlTotal(miCarrito, idProductoAgregado){
+    let indice=miCarrito.findIndex(producto=>producto.id==idProductoAgregado)
+    precioTotal=precioTotal+miCarrito[indice].precio;
+}
+
 //capturamos el nodo padre de la galería:
 let galeriaProductos=document.getElementById("galeriaProductos");
 
@@ -108,28 +141,57 @@ function agregarAlCarro(productoAgregado){
     if(verificadorDeCantidad==undefined){
         let nuevoProducto= new NuevoProducto(productoAgregado);
         miCarrito.push(nuevoProducto);
-        precioTotal+=nuevoProducto.precio;
-        console.log("Se ha agregado collage "+nuevoProducto.nombre+" al carrito. El carrito actualmente contiene: "+miCarrito.length+ " collages. Precio total: "+precioTotal)
-        console.log(miCarrito);
+        sumarProductoAlTotal(miCarrito,`${nuevoProducto.id}`)
+        console.log("Se ha agregado collage "+nuevoProducto.nombre+" al carrito.");
+
         document.getElementById("tablaBody").innerHTML+=`
-            <tr>
+            <tr id=filaProducto_${nuevoProducto.id}>
                 <td>${nuevoProducto.id}</td>
                 <td>${nuevoProducto.nombre}</td>
                 <td id="cantidad_${nuevoProducto.id}">${nuevoProducto.cantidad}</td>
                 <td id="precio_${nuevoProducto.id}">${nuevoProducto.precio}</td>
-                <td><button class='btn btn-light' onclick='eliminarProducto(${nuevoProducto.id})'>hola</button>
+                <td><button id='quitar_${nuevoProducto.id}' class='btn btn-light'>🗑️</button></td>
             </tr>
         `;
+
+        miCarrito.forEach(producto=>{
+            document.getElementById(`quitar_${producto.id}`).addEventListener('click', ()=>{ 
+                console.log(`Se ha quitado una unidad del producto ${producto.nombre}`);
+                producto.cantidad-=1;
+                document.getElementById(`cantidad_${producto.id}`).innerHTML=producto.cantidad;
+                let precioXcantidad=producto.cantidad*producto.precio;
+                document.getElementById(`precio_${producto.id}`).innerHTML=precioXcantidad;
+                restarProductoDelTotal(`${producto.id}`);
+                console.log(precioTotal);   //console de prueba
+                resultadoTablaTotal();
+                if(producto.cantidad<=0){
+                    let indice=miCarrito.findIndex(prod=>prod.id==`${producto.id}`);
+                    miCarrito.splice(indice, 1);
+                    let filaProductoQuitado=document.getElementById(`filaProducto_${producto.id}`);
+                    document.getElementById("tablaBody").removeChild(filaProductoQuitado);
+                    // document.getElementById("tablaTotal").innerHTML=`${resultadoTablaTotal()}`;
+                    resultadoTablaTotal();
+                }
+                console.log(miCarrito);
+                localStorage.setItem("miCarrito", JSON.stringify(miCarrito));
+                
+            })
+        })
         
     } else{
         let posicionEnCarrito=miCarrito.findIndex(producto=>producto.id == productoAgregado.id);
         miCarrito[posicionEnCarrito].cantidad += 1;
+        sumarProductoAlTotal(miCarrito,`${productoAgregado.id}`)
+        console.log(`Se ha agregado collage ${productoAgregado.nombre} al carrito`);
         let precioXcantidad=productoAgregado.precio*miCarrito[posicionEnCarrito].cantidad;
         document.getElementById(`cantidad_${productoAgregado.id}`).innerHTML=miCarrito[posicionEnCarrito].cantidad;
         document.getElementById(`precio_${productoAgregado.id}`).innerHTML=precioXcantidad;
+        
 
     }
-    sumarTotal(miCarrito)
+
+    console.log(precioTotal);
+    console.log(miCarrito);
     resultadoTablaTotal();
     localStorage.setItem("miCarrito", JSON.stringify(miCarrito));
     Toastify({
@@ -143,8 +205,8 @@ function agregarAlCarro(productoAgregado){
         style: {
             background: "background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%)"
         },
-        
     }).showToast();
+
 };
 
 //función que imprime los totales de la tabla:
@@ -170,9 +232,56 @@ function resultadoTablaTotal(){
             <th scope="col"></th>
             <th scope="col"></th>
             <th scope="col">Total: $ ${precioConIva} CLP</th>
+        </tr>`
+
+    document.getElementById("botonesFinales").innerHTML=`
+        <tr>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col">
+                <button class="btn btn-success btn-sm" onclick="comprarCarrito()">Comprar carrito</button>
+                <button class="btn btn-danger btn-sm" onclick="eliminarCarrito()">Borrar carrito 🗑️</button> 
+            </th>
         </tr>`;
 }
 
+function comprarCarrito(){
+        
+        if(precioTotal==0){
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Primero debes agregar productos al carro antes de proceder',
+            })
+        }else{
+            Swal.fire({
+                
+                icon: 'success',
+                title: '',
+                showConfirmButton: false,
+                timer: 1000
+            })
+        }
 
+}
+
+function eliminarCarrito(){
+    
+        miCarrito.splice(0)
+        precioTotal=0;
+        resultadoTablaTotal();
+        console.log(miCarrito);
+        document.getElementById("tablaBody").innerHTML= "";
+        localStorage.setItem("miCarrito", JSON.stringify(miCarrito));
+
+        Swal.fire({
+            
+            icon: 'success',
+            title: 'Carrito borrado! 🗑️',
+            showConfirmButton: false,
+            timer: 1200
+        })
+}
 
 
