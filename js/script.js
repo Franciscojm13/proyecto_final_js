@@ -2,6 +2,7 @@
 let precioTotal = 0;
 const iva=0.19;
 
+//Función constructora de nuevos productos:
 class NuevoProducto{
     constructor(objetoJSON){
         this.id=objetoJSON.id;
@@ -12,7 +13,7 @@ class NuevoProducto{
     }
 }
 
-const miCarrito =JSON.parse(localStorage.getItem("miCarrito")) || [];    //operador lógico or, asignación condicional
+const miCarrito =JSON.parse(localStorage.getItem("miCarrito")) || [];    //Operador lógico or, asignación condicional
 
 insertarCarritoStorage();
 resultadoTablaTotal();
@@ -21,7 +22,7 @@ function insertarCarritoStorage(){
     let precioTotalStorage=sumarTotalStorage(miCarrito);
     console.log("El carrito actualmente contiene los siguientes porductos y su precio total es de "+precioTotalStorage);
     console.log(miCarrito);
-    miCarrito.forEach(productoStorage=>{                        //insertamos en el html lo convertido previamente         
+    miCarrito.forEach(productoStorage=>{                        //Renderizamos cada producto del storage en una tabla        
         document.getElementById("tablaBody").innerHTML+=`
         <tr id=filaProducto_${productoStorage.id}>
             <td>${productoStorage.id}</td>
@@ -31,6 +32,7 @@ function insertarCarritoStorage(){
             <td><button id='quitar_${productoStorage.id}' class='btn btn-light'>🗑️</button></td>
         </tr>`;
     })
+    //Asignamos un evento para cada botón "quitar". Este evento resta una unidad de la cantidad del producto:
     miCarrito.forEach(producto=>{
         document.getElementById(`quitar_${producto.id}`).addEventListener('click', ()=>{ 
             console.log(`Se ha quitado una unidad del producto ${producto.nombre}`);
@@ -38,9 +40,10 @@ function insertarCarritoStorage(){
             document.getElementById(`cantidad_${producto.id}`).innerHTML=producto.cantidad;
             let precioXcantidad=producto.cantidad*producto.precio;
             document.getElementById(`precio_${producto.id}`).innerHTML=precioXcantidad;
+
             restarProductoDelTotal(`${producto.id}`);
             
-            console.log(precioTotal);   //console de prueba
+            console.log(precioTotal);   
             resultadoTablaTotal();
             if(producto.cantidad<=0){
                 let indice=miCarrito.findIndex(prod=>prod.id==`${producto.id}`);
@@ -56,13 +59,13 @@ function insertarCarritoStorage(){
     })
 }
 
-//función que resta un producto del precio total:
+//Función que actualiza el precio total cuando se quita una unidad del producto:
 function restarProductoDelTotal(idProductoQuitar){
     let indice=miCarrito.findIndex(producto=>producto.id==idProductoQuitar)
         precioTotal=precioTotal-miCarrito[indice].precio;
 }
 
-//función sumatoria de precios del storage:
+//Función sumatoria de precios del storage:
 function sumarTotalStorage(carroActual){
     for(const producto of carroActual){
         precioTotal=precioTotal+producto.precio*producto.cantidad;
@@ -71,6 +74,7 @@ function sumarTotalStorage(carroActual){
     return precioTotal;
 }
 
+//Función que actualiza el precio total cuando se agrega un producto:
 function sumarProductoAlTotal(miCarrito, idProductoAgregado){
     let indice=miCarrito.findIndex(producto=>producto.id==idProductoAgregado)
     precioTotal=precioTotal+miCarrito[indice].precio;
@@ -81,7 +85,7 @@ let galeriaProductos=document.getElementById("galeriaProductos");
 
 insertarGaleria();
 
-//función que inserta toda la galería de productos desde un archivo .json:
+//Función que renderiza toda la galería de productos desde un archivo .json:
 function insertarGaleria(){
     fetch("https://franciscojm13.github.io/proyecto_final_js/js/productos.json")
     .then((resp)=>resp.json())
@@ -103,12 +107,13 @@ function insertarGaleria(){
             </div>`;
         }
     
-        //usando sweet alert como vista previa del producto a agregar al carro:
+        //Sweet Alert usado como vista previa del producto a agregar. Cuenta con su propio botón de agregar al carro:
         productosCollage.forEach(producto=>{                
             document.getElementById(`vistaPreviaImg_${producto.id}`).addEventListener('click', function(){
                 Swal.fire({
                     title: `${producto.nombre}`,
                     text: 'Collage análogo 13x18 cm impreso en papel Fine Art',
+                    background: '#F0EBE8',
                     imageUrl: `${producto.foto}`,
                     imageWidth: 390,
                     imageHeight: 520,
@@ -125,7 +130,7 @@ function insertarGaleria(){
 
             })
         })
-        //asignamos un evento click por cada botón:
+        //Evento de cada botón agregar en el Sweet Alert:
         productosCollage.forEach(producto=>{
             document.getElementById(`btn_${producto.id}`).addEventListener('click', function(){ 
                 agregarAlCarro(producto);
@@ -134,9 +139,9 @@ function insertarGaleria(){
     })
 };
 
-//función que pushea cada producto nuevo al array del carrito:
+//Función que pushea cada producto nuevo al array del carrito:
 function agregarAlCarro(productoAgregado){
-    //se verifica si actualmente existe el producto en el carro:
+    //Se verifica si actualmente existe el producto en el carro:
     let verificadorDeCantidad=miCarrito.find(producto=>producto.id == productoAgregado.id);
     if(verificadorDeCantidad==undefined){
         let nuevoProducto= new NuevoProducto(productoAgregado);
@@ -153,7 +158,7 @@ function agregarAlCarro(productoAgregado){
                 <td><button id='quitar_${nuevoProducto.id}' class='btn btn-light'>🗑️</button></td>
             </tr>
         `;
-
+        //Asignamos un evento para cada botón "quitar". Este evento resta una unidad de la cantidad del producto:
         miCarrito.forEach(producto=>{
             document.getElementById(`quitar_${producto.id}`).addEventListener('click', ()=>{ 
                 console.log(`Se ha quitado una unidad del producto ${producto.nombre}`);
@@ -187,10 +192,9 @@ function agregarAlCarro(productoAgregado){
         document.getElementById(`cantidad_${productoAgregado.id}`).innerHTML=miCarrito[posicionEnCarrito].cantidad;
         document.getElementById(`precio_${productoAgregado.id}`).innerHTML=precioXcantidad;
         
-
     }
 
-    console.log(precioTotal);
+    console.log("Precio total: $"+precioTotal);
     console.log(miCarrito);
     resultadoTablaTotal();
     localStorage.setItem("miCarrito", JSON.stringify(miCarrito));
@@ -205,11 +209,12 @@ function agregarAlCarro(productoAgregado){
         style: {
             background: "background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%)"
         },
+        
     }).showToast();
 
 };
 
-//función que imprime los totales de la tabla:
+//Función que renderiza los totales de la tabla:
 function resultadoTablaTotal(){
 
     let precioConIva=precioTotal+precioTotal*iva;
@@ -246,6 +251,7 @@ function resultadoTablaTotal(){
         </tr>`;
 }
 
+//Función que se ejecuta al apretar el botón de comprar el carrito completo:
 function comprarCarrito(){
         
         if(precioTotal==0){
@@ -253,19 +259,61 @@ function comprarCarrito(){
                 icon: 'error',
                 title: 'Oops...',
                 text: 'Primero debes agregar productos al carro antes de proceder',
+                background: '#EBDCD9'
             })
         }else{
+            //Sweet Alert usado como formulario para regitrar los inputs:
             Swal.fire({
-                
-                icon: 'success',
-                title: '',
-                showConfirmButton: false,
-                timer: 1000
+                title: 'Llene el formulario para proceder al pago:',
+                background: 'rgba(163, 201, 233)',
+                allowOutsideClick: false,
+                showCancelButton: true,
+                cancelButtonText: "Cancelar",
+                showCloseButton: true,
+                html: `<form>
+                    <div class="mb-3">
+                        <label for="nombre" class="form-label">Nombre completo:</label>
+                        <input type="text" class="form-control" id="nombre" placeholder="Ingrese su nombre" >
+                    </div>
+                    <div class="mb-3">
+                        <label for="mail" class="form-label">Correo Electrónico:</label>
+                        <input type="email" class="form-control" id="mail" placeholder="Ingrese su correo electrónico" aria-describedby="emailHelp">
+                    </div>
+                    <div class="mb-3">
+                        <label for="address" class="form-label">Dirección:</label>
+                        <input type="text" class="form-control" id="address" placeholder="Ingrese su dirección">
+                    </div>
+                </form>`,
+                confirmButtonText: 'Proceder al pago.',
+                focusConfirm: false,
+                preConfirm: () => {
+                    const nombre = Swal.getPopup().querySelector('#nombre').value
+                    const mail = Swal.getPopup().querySelector('#mail').value
+                    const direccion = Swal.getPopup().querySelector('#address').value
+
+                    if (!nombre || !mail || !direccion) {
+                        Swal.showValidationMessage(`Por favor ingrese los valores requeridos`)
+                    }
+                    return { nombre: nombre, mail: mail, direccion: direccion }
+                }
+
+            }).then((result) => {
+                Swal.fire({ 
+                    icon: 'success',
+                    background: '#F0EBE8',
+                    text: 'Muchas Gracias!, se le redirigirá a la pasarela de pago.',
+                    showConfirmButton: true,
+                    confirmButtonText: 'Proceder al pago.',
+                    title:`Nombre: ${result.value.nombre}
+                        Mail: ${result.value.mail}
+                        Direccion: ${result.value.direccion}
+                    `,
+                })
             })
+            
         }
-
 }
-
+//Función que elimina el carrito completo:
 function eliminarCarrito(){
     
         miCarrito.splice(0)
@@ -278,6 +326,7 @@ function eliminarCarrito(){
         Swal.fire({
             
             icon: 'success',
+            background: '#F0EBE8',
             title: 'Carrito borrado! 🗑️',
             showConfirmButton: false,
             timer: 1200
